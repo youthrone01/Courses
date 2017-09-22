@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>COURSES</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .btn{
+            display: inline-block;
+            margin-right: 10px;
+        }
+        </style>
+    </head>
+    <body>
+        <br>        
+        <form action="/courses/create" method="post">
+        {% csrf_token %}
+        <h1>Add a new course</h1>
+        <label for="name">Name:</label>
+        <input type="text" name="name"><br><br>
+        <label for="desc">Description:</label><br>
+        <textarea name="desc" id="desc" cols="30" rows="10"></textarea><br>
+        <input type="submit" value="Add">
+        </form>
+        <br>
+        
+        <h1>Courses</h1>
+            <table>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Date Added</th>                    
+                    <th>Actions</th>
+                </tr>                
+                    {% if all_courses%}                    
+                        {% for course in all_courses%}
+                        <tr>
+                        <td>{{course.name}}</td>
+                        <td>{{course.description.desc}}</td>
+                        <td>{{course.created_at}}</td>
+                        <td> 
+                            <button><a href="/courses/comment/{{course.id}}">Comment</a></button>
+                            <button><a href="/courses/destroy/{{course.id}}">Remove</a></button>
+                         </td>       
+                        </tr>
+                        {% endfor%}                    
+                    {% endif%}                       
+            </table>
+            <br>
+            <br>
+    
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Destroy</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+    </head>
+    <body>
+        <h1>Course {{the_course.id}} </h1><br>
+        <h3>Name: {{the_course.name}}</h3>
+        <h3>Description: {{the_course.description.desc}}</h3>
+        <br>
+        <br>
+        {% if comments%}
+            {% for comment in comments%}
+            <h4>{{comment.comment}} ------{{comment.created_at}}</h4><br>
+            {%endfor%}
+        {% endif %}
+
+
+        
+        <form action="/courses/comment/{{the_course.id}}" method="post">
+            {% csrf_token %}
+            <textarea name="comment" id="" cols="30" rows="10"></textarea><br>
+            <input type="submit" value="Add comment">
+        </form>
+        <br>
+        <a href="/courses">Go Back</a>
+    </body>
+</html>
